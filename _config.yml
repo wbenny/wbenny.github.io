@@ -1,0 +1,23 @@
+title:              mindless-area
+email:              w.benny+blog@outlook.com
+description: >-
+  sharing notes...
+baseurl:            ""
+url:                ""
+
+#
+# Social profiles
+#
+twitter_username:   PetrBenes
+github_username:    wbenny
+
+#
+# Build settings
+#
+markdown:           kramdown
+theme:              jekyll-theme-clean-blog
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
