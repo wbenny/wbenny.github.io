@@ -2,7 +2,7 @@
 layout:     post
 title:      "KDNET over USB"
 subtitle:   Remote kernel debugging (not only) your Windows on ARM
-date:       2018-10-15 21:00:00 +0200
+date:       2018-10-16 23:45:00 +0200
 background: '/img/bg-post.jpg'
 ---
 
