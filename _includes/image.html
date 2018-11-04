@@ -1,0 +1,11 @@
+<!-- _includes/image.html -->
+<div style="width: 100%; margin-top: 15px">
+    <div style="display: table; margin: 0 auto">
+        <figure class="captioned">
+            <img class="slb" src="{{ include.src }}" alt="{{ include.alt }}" style="display: block; margin: auto; max-width: 100%" />
+            {% if include.caption %}
+            <figcaption>{{ include.caption }}</figcaption>
+            {% endif %}
+        </figure>
+    </div>
+</div>

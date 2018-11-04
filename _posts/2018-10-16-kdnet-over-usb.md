@@ -55,7 +55,7 @@ which appears to be available only to particular OEM/vendors. I started to lose
 any hope, when suddenly I just spotted a new network adapter in my network
 settings:
 
-![kdnet](/img/posts/kdnet.png)
+![kdnet](/img/posts/1/kdnet.png)
 
 _so, it'll maybe work somehow!_
 

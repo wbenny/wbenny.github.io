@@ -1,0 +1,27 @@
+/*
+ * <figure> & <figcaption>
+ */
+
+figure.captioned {
+    display: inline-block;
+    border: 0px solid #000;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+figure.captioned img {
+    vertical-align: top;
+}
+
+figure.captioned figcaption {
+    border: 0px solid #000;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+}
