@@ -69,9 +69,9 @@ build 18247.
     - [Kernel (initialization)](#kernel-initialization)
     - [Kernel (create process)](#kernel-create-process)
 - [Initialization of the WoW64 process](#initialization-of-the-wow64-process)
-    - [wow64!ProcessInit](#wow64processinit)
-        - [wow64!ServiceTables](#wow64servicetables)
-        - [wow64!Wow64SystemServiceEx](#wow64wow64systemserviceex)
+    - [`wow64!ProcessInit`](#wow64processinit)
+        - [`wow64!ServiceTables`](#wow64servicetables)
+        - [`wow64!Wow64SystemServiceEx`](#wow64wow64systemserviceex)
     - [`wow64!ProcessInit` (cont.)](#wow64processinit-cont)
     - [`wow64!ThreadInit`](#wow64threadinit)
 - [x86 on x64](#x86-on-x64)
@@ -146,8 +146,6 @@ this `enum` (included in the **PDB**):
 
 <script src="https://gist.github.com/wbenny/0fe3f22d272f59536ecded10e3fdbbbf.js"></script>
 
-Remember this `enum`, we'll be needing it again in a while.
-
 Now, let's look how such structure looks like:
 
 {% include image.html
@@ -189,8 +187,8 @@ Let's look at it:
    caption="NtdllExportInformation (ARM64)"
 %}
 
-It looks like it's some sort of array, again, ordered by the `enum _SYSTEM_DLL_TYPE`
-mentioned earlier. Let's examine `NtdllExports`:
+It looks like it's some sort of array, again, ordered by the `enum _SYSTEM_DLL_TYPE`.
+Let's examine `NtdllExports`:
 
 {% include image.html
    src="/img/posts/2/IDA_NtdllExports_x64.png"
@@ -375,8 +373,8 @@ checks if the mapped image exports the `Wow64Transition` symbol and if so, it
 assigns there a **32-bit pointer value** returned by `emu!BTCpuGetBopCode`.
 
 The `Wow64Transition` is mostly known to be exported by `SysWOW64\ntdll.dll`,
-but there are actually multiple of Windows' WoW DLLs which exports this symbol (will
-be mentioned later). You might be already familiar with the term "Heaven's Gate" -
+but there are actually multiple of Windows' WoW DLLs which exports this symbol.
+You might be already familiar with the term "Heaven's Gate" -
 this is where the `Wow64Transition` will point to on Windows x64 - a simple far
 jump instruction which switches into long-mode (64-bit) enabled code segment.
 On ARM64, the `Wow64Transition` points to a "nop" function.
@@ -547,7 +545,7 @@ This function is similar to the kernel's `nt!KiSystemCall64` - it does the
 dispatching of the system call. This function is exported by the `wow64.dll`
 and imported by the emulation DLLs. `Wow64SystemServiceEx` accepts 2 arguments:
 - The system call number
-- Pointer to an array of 32-bit arguments passed to the system call (as mentioned earlier)
+- Pointer to an array of 32-bit arguments passed to the system call (mentioned earlier)
 
 The system call number isn't just an index, but also contains index of a system
 table which needs to be selected (this is also true for `ntoskrnl.exe`):
@@ -651,7 +649,6 @@ exported functions:
 Interestingly, not all functions need to be found - only those marked with the
 "**(!)**", the rest is optional. As a next step, the resolved `BTCpuProcessInit`
 function is called, which performs binary-translator-specific process initialization.
-We'll cover that in later section.
 
 At the end of the `ProcessInit` function, `wow64!Wow64ProtectMrdata(1)` is called,
 making `.mrdata` non-writable again.
@@ -720,7 +717,6 @@ Also, this flag is cleared on every emulation loop (using `btr` - bit-test-and-r
 You can see the simplest form of switching into the 32-bit mode. Also, at the beginning
 you can see that `TurboThunkDispatch` address is moved into the `r15` register.
 This register stays untouched during the whole `RunSimulatedCode` function.
-Turbo thunks will be explained in more detail later.
 
 ### Leaving 32-bit mode
 
@@ -897,7 +893,7 @@ the previous sections I've been talking about `ntdll32!NtWow64CallFunction64` an
 `wow64!Wow64CallFunctionTurboThunkControl` functions. As with any other `NtWow64*`
 function, `NtWow64CallFunction64` is only available in the WoW64 `ntdll.dll`.
 This function can be called with an index to WoW64 function in the
-`Wow64FunctionDispatch64` table (you could see earlier).
+`Wow64FunctionDispatch64` table (mentioned earlier).
 
 The function prototype might look like this:
 
@@ -927,7 +923,7 @@ With all this in mind, we can achieve disabling Turbo thunks by this call:
 
 What it might be good for? I can think of 3 possible use-cases:
 
-- If we deploy custom `wow64log.dll` (explained earlier), disabling Turbo thunks
+- If we deploy custom `wow64log.dll`, disabling Turbo thunks
   guarantees that we will see **every WoW64 system call** in our
   `wow64log!Wow64LogSystemService` callback. We wouldn't see such calls if the Turbo thunks
   were enabled, because they would take the "fast path" inside of the `wow64cpu.dll`
@@ -971,9 +967,6 @@ directory which contains files in format `FILENAME.EXT.HASH1.HASH2.mp.N.jc`.
 These files are then mapped to the user-mode address space of the application.
 If you're asking whether you can find an actual ARM64 code in these files - indeed,
 you can.
-
-The whole "XTA" and its internals are not in the focus of this article, but they
-would definitely deserve a separate article.
 
 Unfortunatelly, Microsoft doesn't provide symbols to any of these `xta*` DLLs or executables. But if
 you're feeling adventurous, you can find some interesting artifacts, like
@@ -1034,11 +1027,11 @@ function, we can see that it doesn't differ from what we would see in the
 
 We can see it contains regular x86 function prologue, immediately followed by
 x86 function epilogue and then jump somewhere, where it looks like that there's
-just garbage.
+just garbage. That "garbage" is actually ARM64 code of that function.
 
 My guess is that the reason for this prologue is probably compatibility with
 applications that check whether some particular functions are hooked or not -
-by checking if the first bytes of the function contain real prologue.
+by checking if the first bytes of the function contain real x86 prologue.
 
 > **NOTE:** Again, if you're feeling adventurous, you can patch `FileHeader.Machine`
 > field in the PE header to `IMAGE_FILE_MACHINE_ARM64 (0xAA64)` and open this
