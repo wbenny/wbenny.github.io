@@ -3,7 +3,6 @@ layout:     post
 title:      "WoW64 internals"
 subtitle:   ...re-discovering Heaven's Gate on ARM
 date:       2018-11-04 16:00:00 +0200
-background: '/img/bg-post.jpg'
 ---
 
 WoW64 - aka Windows (32-bit) on Windows (64-bit) - is a subsystem that enables
@@ -469,7 +468,7 @@ except that it is extended:
 > the native `ntdll.dll` and `wow64win.dll`. This means that `wow64win.dll` is
 > loaded even into "non-Windows-subsystem" processes, that wouldn't normally
 > load `user32.dll`.
-> 
+>
 > These two symbols mentioned above are the only symbols that `wow64.dll` requires
 > `wow64win.dll` to export.
 
@@ -803,7 +802,7 @@ mode when 32-bit to 64-bit transition occurs. Let's recapitulate the code:
 
 - Stack is swapped,
 - Non-volatile registers are saved
-- `eax` - which contains the encoded service table index and system call number - 
+- `eax` - which contains the encoded service table index and system call number -
   is moved into the `ecx`
 - it's high-word is acquired via `ecx >> 16`.
 - the result is used as an index into the `TurboThunkDispatch` jump-table
@@ -935,7 +934,7 @@ What it might be good for? I can think of 3 possible use-cases:
   (This is basically the same point as the previous one.)
 
   > **NOTE:** Keep in mind that this only applies on system calls, i.e. on `Nt*`
-  > or `Zw*` functions. Other functions are not called from the 32-bit `ntdll.dll` 
+  > or `Zw*` functions. Other functions are not called from the 32-bit `ntdll.dll`
   > to the 64-bit `ntdll.dll`. For example, if we hooked `RtlDecompressBuffer`
   > in the native `ntdll.dll` of the WoW64 process, it wouldn't be called
   > on `ntdll32!RtlDecompressBuffer` call. This is because the full implementaion of the
@@ -945,7 +944,7 @@ What it might be good for? I can think of 3 possible use-cases:
   For example we could see in `NtWaitForSingleObject` there is `mov eax, 0D0004h`.
   If we patched appropriate 2 bytes in that instruction so that the instruction
   would become `mov eax, 4h`, the system call would still work.
-  
+
   This approach can be used as an anti-hooking technique - if there's a jump
   at the start of the function, the patch will break it. If there's not a jump,
   we just disable the Turbo thunk for this function.
@@ -1054,7 +1053,7 @@ instruction and then restoring the `CONTEXT`.
 
 ### `nt!KiEnter32BitMode` / `SVC 0xFFFF`
 
-I won't be explaining here how system call dispatching works in the `ntoskrnl.exe` - 
+I won't be explaining here how system call dispatching works in the `ntoskrnl.exe` -
 [Bruce Dang already did an excellent job doing it][bruce-dang-arm64-syscall].
 This section is a follow up on his article, though.
 
@@ -1097,7 +1096,7 @@ We can see that:
 - `ORR X16, X16, #0b10000` - bit [4] is being set in `X16` which is later moved
   to the `SPSR_EL1` register. Setting this bit **switches the execution mode to
   32-bits**.
-  
+
 Simply said, in the `X15` register, there is an address that will be
 executed once we leave the kernel-mode and enter the user-mode - which happens
 with the `ERET` instruction at the end.
