@@ -3,8 +3,6 @@ layout:     post
 title:      "WoW64 internals"
 subtitle:   ...re-discovering Heaven's Gate on ARM
 date:       2018-11-04 16:00:00 +0200
-redirect_from:
-   - /2018/11/04/wow64-internals.html
 ---
 
 WoW64 - aka Windows (32-bit) on Windows (64-bit) - is a subsystem that enables
