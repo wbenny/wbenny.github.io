@@ -294,7 +294,6 @@ void entry() { ... }
 </table>
 
 Huh? Why is the `.text$aa` section placed between `.text$bb` and `.text$zz`?
-In what universe is 0 greater than 10?
 
 ## The Investigation
 
