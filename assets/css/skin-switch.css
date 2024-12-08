@@ -113,12 +113,6 @@
   background-color: #2b2829;
 }
 .page-dark-mode .highlight > pre {
-  background-image: linear-gradient(
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.03) 1.5em,
-    rgba(255, 255, 255, 0.02) 1.5em,
-    rgba(255, 255, 255, 0.02) 3em
-  );
   border-color: rgba(255, 255, 255, 0.1);
   border-left-color: #a0a0a0;
 }
