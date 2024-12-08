@@ -547,6 +547,32 @@ around the section name.
 
 It's not a pretty solution, but it's a solution nonetheless.
 
+## Update #2
+
+[sixtyvividtails](https://twitter.com/sixtyvividtails/status/1865756198638874743)
+has pointed out that the `mn` isn't specific to MASM; in fact, all code compiled
+with MSVC defaults to the `.text$mn` section.
+
+I've verified this to be true. I also feel a bit stupid for not realizing this
+sooner - I've always examined the section names of object files where I had
+explicitly `#pragma`'d the sections.
+
+He also has a theory that the `mn` stands for `main`. I'm waiting for Bill Gates
+to confirm this.
+
+However, since the MSVC does this by default, it sheds new light on the purpose
+of the `.text$mn` subsection - it allows for the ordering of code within the
+`.text` section for the CRT itself. And `mn` designation is simply a convenient
+choice, picked to be exactly in the middle of the alphabet.
+
+This is also supported by the fact that the MSVC CRT libraries already use
+multiple `.text` subsections, including:
+
+- `.text$di`
+- `.text$mn`
+- `.text$x`
+- `.text$yd`
+
 ## References
 
 - **CRT initialization:**<br/>
