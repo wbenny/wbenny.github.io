@@ -515,6 +515,38 @@ Either way, it's there. And it's worth knowing about it, especially if
 you're combining MASM with MSVC and are particularly picky about the
 section order.
 
+## Update
+
+Not long after [posting this on Twitter](https://twitter.com/PetrBenes/status/1865684270984876039)
+I was contacted by [Evan McBroom](https://twitter.com/mcbroom_evan) (thank you!)
+who informed me that in fact you **can** avoid the `.text$mn` subsection.
+
+The trick is to use the `ALIAS` keyword within the `SEGMENT` directive, like this:
+
+```
+  _EXAMPLE SEGMENT PARA ALIAS('.text$aa') 'CODE'
+    ...
+  _EXAMPLE ENDS
+```
+
+The catch - as you might have spotted - is to _not_ use the `_TEXT` keyword.
+Apparently, `_TEXT` has special handling in MASM, and attempting
+to `ALIAS` it will result in error.
+
+You **don't** have to prefix the section name with the underscore (`_`)
+character, though. This is valid as well:
+
+```
+  EXAMPLE SEGMENT PARA ALIAS('.text$aa') 'CODE'
+    ...
+  EXAMPLE ENDS
+```
+
+Note that you can use both single-quote (`'`) and double-quote (`"`) characters
+around the section name.
+
+It's not a pretty solution, but it's a solution nonetheless.
+
 ## References
 
 - **CRT initialization:**<br/>
