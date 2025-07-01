@@ -164,6 +164,7 @@ site-css:
   - "/assets/css/skin-switch.css"
   - "/assets/css/figcaption.css"
   - "/assets/css/simplebox.min.css"
+  - "/assets/css/base16.dark.css"
 
 # If you have common JavaScript files that should be included in every page, list them here
 site-js:
