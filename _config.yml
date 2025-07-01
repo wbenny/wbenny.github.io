@@ -203,7 +203,7 @@ gtag: "G-4J8LW3Q8Z6"
 ####################
 
 # To use Disqus comments, sign up to https://disqus.com and fill in your Disqus shortname (NOT the userid)
-disqus: "wbenny-github-io"
+# disqus: "wbenny-github-io"
 
 # To use Facebook Comments, create a Facebook app and fill in the Facebook App ID
 #fb_comment_id: ""
