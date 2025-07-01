@@ -1,0 +1,134 @@
+#change-skin {
+  position: absolute;
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+  padding: 0.0625rem;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media (min-width: 1200px) {
+  .navbar .navbar-collapse {
+    margin-right: 2.3rem;
+  }
+  #change-skin {
+    top: auto;
+    right: 1rem;
+  }
+}
+@media (max-width: 1199px) {
+  #change-skin {
+    top: 0.85rem;
+    right: 5rem;
+  }
+}
+#change-skin .skin-btn {
+  -webkit-transition: margin 0.3s ease-in-out;
+  -moz-transition: margin 0.3s ease-in-out;
+  transition: margin 0.3s ease-in-out;
+  margin: 0 0.8rem 0 0;
+}
+#change-skin:hover .skin-btn {
+  margin: 0 0 0 0.8rem;
+}
+#change-skin .dark-mode {
+  display: none;
+}
+.page-dark-mode #change-skin {
+  background: #242526;
+  border-color: #444;
+}
+.page-dark-mode #change-skin .dark-mode {
+  display: block;
+}
+.page-dark-mode #change-skin .light-mode {
+  display: none;
+}
+#change-skin:hover {
+  background: #888;
+}
+
+/* Below is a copy of the dark mode CSS, all rules prepended with the dark mode switch */
+
+.page-dark-mode {
+  --text-col: #e4e6eb;
+  --page-col: #18191a;
+  --link-col: #139ee0;
+  --hover-col: #28a9e6;
+  --navbar-col: #242526;
+  --navbar-text-col: #e4e6eb;
+  --navbar-border-col: #393a3b;
+  --footer-col: #242526;
+  --footer-text-col: #aaaaaa;
+  --footer-link-col: #dfdfdf;
+  --footer-hover-col: #28a9e6;
+  --mid-col: #999999;
+}
+
+.page-dark-mode table tr {
+  border-top-color: #666;
+}
+.page-dark-mode table tr:nth-child(2n) {
+  background-color: #28292a;
+}
+.page-dark-mode table tr th,
+.page-dark-mode table tr td {
+  border-color: #666;
+}
+.page-dark-mode .jumbotron {
+  background: #242526;
+}
+.page-dark-mode .blog-post blockquote {
+  border-left-color: #444;
+}
+.page-dark-mode .post-preview {
+  border-bottom-color: #444;
+}
+.page-dark-mode a.btn {
+  color: #fff;
+}
+.page-dark-mode .header-section.has-img .no-img {
+  background-color: #111;
+  box-shadow: 0 0 0.3125rem #888;
+}
+.page-dark-mode .box-note,
+.page-dark-mode .box-warning,
+.page-dark-mode .box-error,
+.page-dark-mode .box-success {
+  color: #404040;
+}
+.page-dark-mode .blog-post .caption {
+  color: #aaa;
+}
+.page-dark-mode code {
+  color: #c7254e;
+  background-color: #2b2829;
+}
+.page-dark-mode .highlight > pre {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1.5em,
+    rgba(255, 255, 255, 0.02) 1.5em,
+    rgba(255, 255, 255, 0.02) 3em
+  );
+  border-color: rgba(255, 255, 255, 0.1);
+  border-left-color: #a0a0a0;
+}
+.page-dark-mode pre {
+  color: #e4e6eb;
+}
+.page-dark-mode pre code {
+  color: inherit;
+}
+.page-dark-mode .highlight pre.lineno {
+  color: rgba(255, 255, 255, 0.3);
+  border-right-color: #a0a0a0;
+}

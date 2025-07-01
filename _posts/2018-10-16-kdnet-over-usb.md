@@ -3,7 +3,6 @@ layout:     post
 title:      "KDNET over USB"
 subtitle:   Remote kernel debugging (not only) your Windows on ARM
 date:       2018-10-16 23:50:00 +0200
-background: '/img/bg-post.jpg'
 ---
 
 _Windows on ARM_ is slowly getting its way on the market ([again][win-rt]).
