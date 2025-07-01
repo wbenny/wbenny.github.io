@@ -3,6 +3,8 @@ layout:     post
 title:      "MmScrubMemory"
 subtitle:   The Nemesis of Virtual Machine Introspection
 date:       2024-11-22 01:40:00 +0200
+redirect_from:
+   - /2024-11-21-mmscrubmemory/
 ---
 
 A story about how one scary function accompanied me for more than 5 years.
